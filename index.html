@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waypoint Coaching — Mara Voss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EAE4D6;
+    --bg-deep: #DCD4BF;
+    --paper: #F5F1E7;
+    --ink: #22271F;
+    --ink-soft: #52584A;
+    --pine: #33473B;
+    --pine-deep: #22302A;
+    --gold: #A9782F;
+    --gold-soft: #C9A566;
+    --line: rgba(34,39,31,0.14);
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Public Sans', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3,.serif{
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--pine-deep);
+  }
+
+  a { color: inherit; }
+  img { max-width: 100%; display:block; }
+
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Focus & motion ---------- */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline: 2px solid var(--pine);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(234,228,214,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--pine-deep);
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand svg{ width: 22px; height: 22px; flex-shrink:0; }
+  .nav-links{
+    display:flex;
+    gap: 36px;
+    list-style:none;
+    margin:0; padding:0;
+    font-size: 15px;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color: var(--ink-soft);
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .nav-links a:hover{ color: var(--pine-deep); border-color: var(--gold); }
+  .nav-cta{
+    background: var(--pine-deep);
+    color: var(--paper) !important;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    text-decoration:none;
+    font-size: 14px;
+    border-bottom: none !important;
+    transition: background .2s ease;
+  }
+  .nav-cta:hover{ background: var(--pine); }
+  .menu-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 88px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .eyebrow-line{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    margin-bottom: 22px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .eyebrow-line .dot{
+    width: 7px; height:7px; border-radius:50%;
+    background: var(--gold);
+    flex-shrink:0;
+  }
+  .hero h1{
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.08;
+    max-width: 13ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    max-width: 46ch;
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+  .hero-actions{
+    display:flex;
+    gap: 18px;
+    margin-top: 34px;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+  .btn-primary{
+    background: var(--pine-deep);
+    color: var(--paper);
+    text-decoration:none;
+    padding: 14px 26px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    border: 1px solid var(--pine-deep);
+    transition: background .2s ease, transform .15s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ background: var(--pine); transform: translateY(-1px); }
+  .btn-ghost{
+    text-decoration:none;
+    color: var(--pine-deep);
+    font-size: 15px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--pine-deep);
+  }
+
+  .hero-art{ position: relative; }
+  .path-svg{
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .path-line{
+    fill:none;
+    stroke: var(--pine);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    animation: draw 1.8s ease forwards .3s;
+  }
+  .path-dot{
+    fill: var(--gold);
+    opacity:0;
+    animation: fadein .5s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes fadein{ to{ opacity:1; } }
+
+  /* ---------- Section shared ---------- */
+  section{ padding: 84px 0; }
+  .section-head{
+    max-width: 60ch;
+    margin-bottom: 52px;
+  }
+  .section-head h2{
+    font-size: clamp(28px, 3.4vw, 38px);
+    line-height: 1.15;
+  }
+  .section-head p{
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 17px;
+    max-width: 52ch;
+  }
+  .kicker{
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+
+  /* ---------- About ---------- */
+  .about{ background: var(--bg-deep); }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 64px;
+    align-items:start;
+  }
+  .about-portrait{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .portrait-frame{
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, var(--pine) 0%, var(--pine-deep) 100%);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .portrait-frame svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .about-caption{
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .about-caption strong{ display:block; color: var(--ink); font-family:'Fraunces',serif; font-size:16px; margin-bottom:2px;}
+  .about-copy p{ margin: 0 0 18px; color: var(--ink-soft); max-width: 58ch; }
+  .about-copy p:first-of-type{ font-size: 19px; color: var(--ink); }
+  .credentials{
+    margin-top: 28px;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .credentials div{ font-size:14px; color: var(--ink-soft); }
+  .credentials strong{ color: var(--ink); display:block; font-family:'Fraunces',serif; font-size: 22px; }
+
+  /* ---------- Approach (path/journey) ---------- */
+  .approach{ position: relative; }
+  .approach-list{
+    position: relative;
+    max-width: 720px;
+  }
+  .approach-list::before{
+    content:"";
+    position:absolute;
+    left: 27px;
+    top: 14px;
+    bottom: 14px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--pine) 0 6px, transparent 6px 12px);
+  }
+  .step{
+    position: relative;
+    padding-left: 76px;
+    padding-bottom: 48px;
+  }
+  .step:last-child{ padding-bottom: 0; }
+  .step-num{
+    position:absolute;
+    left: 0; top: 0;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--pine);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-size: 20px;
+    color: var(--pine-deep);
+  }
+  .step h3{ font-size: 22px; margin-bottom: 8px; }
+  .step p{ color: var(--ink-soft); max-width: 50ch; margin:0; }
+
+  /* ---------- Offerings ---------- */
+  .offerings{ background: var(--bg-deep); }
+  .offer-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .offer{
+    background: var(--bg-deep);
+    padding: 40px 32px;
+    display:flex;
+    flex-direction:column;
+  }
+  .offer.featured{ background: var(--pine-deep); color: var(--paper); }
+  .offer.featured h3, .offer.featured .price{ color: var(--paper); }
+  .offer.featured p{ color: rgba(245,241,231,0.78); }
+  .offer.featured .btn-primary{ background: var(--gold); border-color: var(--gold); color: var(--pine-deep); }
+  .offer.featured .btn-primary:hover{ background: var(--gold-soft); }
+  .offer .tag{
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .offer.featured .tag{ color: var(--gold-soft); }
+  .offer h3{ font-size: 24px; margin-bottom: 10px; }
+  .price{
+    font-family:'Fraunces', serif;
+    font-size: 32px;
+    color: var(--pine-deep);
+    margin: 4px 0 18px;
+  }
+  .price span{ font-size: 14px; font-family:'Public Sans',sans-serif; color: var(--ink-soft); }
+  .offer p{ color: var(--ink-soft); font-size: 15px; flex-grow:1; margin-bottom: 24px; }
+  .offer .btn-primary{ text-align:center; }
+
+  /* ---------- Testimonials ---------- */
+  .quote-row{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  blockquote{
+    margin:0;
+    padding: 32px 0 0;
+    border-top: 1px solid var(--line);
+  }
+  blockquote p{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0 0 18px;
+  }
+  blockquote footer{
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  blockquote footer strong{ color: var(--ink); font-style:normal; }
+
+  /* ---------- CTA / Contact ---------- */
+  .contact{ background: var(--pine-deep); color: var(--paper); }
+  .contact .section-head h2{ color: var(--paper); }
+  .contact .section-head p{ color: rgba(245,241,231,0.75); }
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .contact-info{ padding-top: 4px; }
+  .contact-info dl{ margin: 24px 0 0; }
+  .contact-info dt{ font-size: 13px; color: var(--gold-soft); margin-bottom: 4px; }
+  .contact-info dd{ margin: 0 0 22px; font-size: 17px; }
+  form{ display:flex; flex-direction:column; gap: 16px; }
+  form label{ font-size: 14px; color: rgba(245,241,231,0.8); margin-bottom: 6px; display:block; }
+  form input, form textarea, form select{
+    width:100%;
+    background: rgba(245,241,231,0.06);
+    border: 1px solid rgba(245,241,231,0.28);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    color: var(--paper);
+    font-family: inherit;
+    font-size: 15px;
+  }
+  form input::placeholder, form textarea::placeholder{ color: rgba(245,241,231,0.4); }
+  form textarea{ resize: vertical; min-height: 100px; }
+  form button{
+    margin-top: 6px;
+    background: var(--gold);
+    color: var(--pine-deep);
+    border: none;
+    padding: 14px 26px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-family: inherit;
+    cursor:pointer;
+    transition: background .2s ease;
+    align-self: flex-start;
+  }
+  form button:hover{ background: var(--gold-soft); }
+  .form-note{ font-size:13px; color: rgba(245,241,231,0.55); margin-top:-4px; }
+
+  /* ---------- Footer ---------- */
+  footer.site-footer{
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .footer-links{ display:flex; gap: 24px; list-style:none; padding:0; margin:0; }
+  .footer-links a{ text-decoration:none; color: var(--ink-soft); }
+  .footer-links a:hover{ color: var(--pine-deep); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .nav-links{ display:none; }
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-art{ order:-1; max-width: 340px; }
+    .about-grid{ grid-template-columns: 1fr; }
+    .offer-grid{ grid-template-columns: 1fr; }
+    .quote-row{ grid-template-columns: 1fr; }
+    .contact-grid{ grid-template-columns: 1fr; gap: 40px; }
+    .wrap{ padding: 0 22px; }
+    section{ padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 20C6 14 9 10 12 10C15 10 14 16 17 16C19 16 20 13 21 9" stroke="#33473B" stroke-width="2" stroke-linecap="round"/><circle cx="21" cy="9" r="1.6" fill="#A9782F"/></svg>
+      Waypoint
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#offerings">Offerings</a></li>
+      <li><a href="#testimonials">Stories</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Book a first call</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow-line"><span class="dot"></span>Coaching for people mid-change</div>
+        <h1>You already know something has to give. <em>Let's find the way through.</em></h1>
+        <p class="lede">I work with people who are between one version of their life and the next — leaving a career, ending something, starting over — and need a clear-headed guide, not a cheerleader.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Book a first call — free, 20 min</a>
+          <a href="#approach" class="btn-ghost">See how sessions work</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg class="path-svg" viewBox="0 0 380 420" xmlns="http://www.w3.org/2000/svg">
+          <path class="path-line" d="M60 30 C 20 90, 40 140, 100 160 C 170 185, 150 240, 90 270 C 40 296, 60 340, 130 360 C 190 378, 210 330, 280 340 C 330 347, 340 380, 320 400" />
+          <circle class="path-dot" style="animation-delay:.4s" cx="60" cy="30" r="6"/>
+          <circle class="path-dot" style="animation-delay:.9s" cx="100" cy="160" r="6"/>
+          <circle class="path-dot" style="animation-delay:1.3s" cx="90" cy="270" r="6"/>
+          <circle class="path-dot" style="animation-delay:1.7s" cx="130" cy="360" r="6"/>
+          <circle class="path-dot" style="animation-delay:2.0s" cx="320" cy="400" r="7" fill="#33473B"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="about-portrait">
+        <div class="portrait-frame">
+          <svg viewBox="0 0 300 375" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="375" fill="#22302A"/>
+            <path d="M-20 250 C 60 200, 100 280, 160 230 C 220 180, 260 260, 320 220" stroke="#A9782F" stroke-width="2" fill="none" opacity="0.6"/>
+            <path d="M-20 290 C 70 250, 120 320, 190 270 C 240 235, 280 300, 330 270" stroke="#F5F1E7" stroke-width="1.5" fill="none" opacity="0.25"/>
+            <circle cx="150" cy="140" r="46" fill="#F5F1E7" opacity="0.9"/>
+            <path d="M90 340 C 100 260, 200 260, 210 340" fill="#F5F1E7" opacity="0.9"/>
+          </svg>
+        </div>
+        <div class="about-caption">
+          <strong>Mara Voss</strong>
+          Based in Portland, working with clients everywhere over video
+        </div>
+      </div>
+      <div class="about-copy">
+        <div class="kicker">About</div>
+        <p>I spent eleven years in publishing before I left — not in a single dramatic moment, but slowly, the way most real changes happen. It took me two years to actually leave once I knew I wanted to.</p>
+        <p>That's the part nobody prepares you for: knowing isn't the same as moving. I trained as a coach specifically to work with that gap — the distance between recognizing something isn't working and actually rebuilding your life around a different answer.</p>
+        <p>My clients are usually 35 to 55, often successful by every visible measure, and quietly certain that the current version of their life isn't the one they want to keep living. Some are leaving careers. Some are leaving relationships, cities, or identities they've outgrown. I don't hand out five-step plans. I ask better questions, hold you to what you actually say you want, and help you build a plan you can stand behind on the hard days.</p>
+        <div class="credentials">
+          <div><strong>500+</strong>coaching hours logged</div>
+          <div><strong>ICF</strong>certified, PCC level</div>
+          <div><strong>11 yrs</strong>in publishing before this</div>
+          <div><strong>6–12</strong>months, typical engagement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach" id="approach">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">How it works</div>
+        <h2>Four stages, not a fixed script</h2>
+        <p>Every engagement moves through the same rough terrain, though the pace is entirely yours. Some people move through all four in a season. Others spend a year in stage two.</p>
+      </div>
+      <div class="approach-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Take stock</h3>
+          <p>The first two sessions are mostly listening. We map what's actually true about your situation — separating what you're afraid of from what's real, and what's habit from what's actually necessary.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Name the want</h3>
+          <p>Most people arrive knowing what they don't want. This stage is slower and harder: getting specific about what you're actually moving toward, without borrowing someone else's definition of a good life.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Build the bridge</h3>
+          <p>We turn the direction into an actual plan — financial runway, timing, the conversations you've been avoiding, and the smaller decisions that make the big one possible.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Hold the line</h3>
+          <p>Change rarely fails at the decision — it fails in month four, when it gets hard and quiet. This stage is about staying accountable to yourself once the initial momentum fades.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERINGS -->
+  <section class="offerings" id="offerings">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Offerings</div>
+        <h2>Three ways to work together</h2>
+        <p>Most clients start with a single call to see if it's a fit, then move into an ongoing arrangement. There's no pressure to commit further than feels right.</p>
+      </div>
+    </div>
+    <div class="wrap" style="padding:0;">
+      <div class="offer-grid">
+        <div class="offer">
+          <div class="tag">Single session</div>
+          <h3>One clear hour</h3>
+          <div class="price">$220 <span>/ session</span></div>
+          <p>For a specific decision you're stuck on right now. One 60-minute session, a recording, and a short written summary of what we worked out.</p>
+          <a href="#contact" class="btn-primary">Book a session</a>
+        </div>
+        <div class="offer featured">
+          <div class="tag">Most common</div>
+          <h3>Ongoing coaching</h3>
+          <div class="price">$650 <span>/ month</span></div>
+          <p>Two sessions a month plus messaging support between them. This is where the four stages happen. Most clients stay 6–12 months.</p>
+          <a href="#contact" class="btn-primary">Start with a first call</a>
+        </div>
+        <div class="offer">
+          <div class="tag">Focused</div>
+          <h3>Career transition intensive</h3>
+          <div class="price">$1,800 <span>/ 6 weeks</span></div>
+          <p>A compressed six-week arrangement for a defined move — leaving a job, negotiating an exit, or launching something on your own.</p>
+          <a href="#contact" class="btn-primary">Ask about fit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">In their words</div>
+        <h2>What clients say once they're on the other side</h2>
+      </div>
+      <div class="quote-row">
+        <blockquote>
+          <p>"Mara didn't tell me what to do, which is exactly what I needed. She kept asking the one question I was avoiding until I finally answered it honestly."</p>
+          <footer><strong>R. Okafor</strong> — left a 14-year legal career, now runs a small studio</footer>
+        </blockquote>
+        <blockquote>
+          <p>"I'd read every book on the subject before I called her. What I actually needed wasn't more information — it was someone to hold me to the plan once I made one."</p>
+          <footer><strong>J. Lindqvist</strong> — relocated countries after twenty years in one city</footer>
+        </blockquote>
+        <blockquote>
+          <p>"Six months in, I noticed I'd stopped rehearsing my resignation speech in the shower and started actually planning my notice period. Small thing. Everything, really."</p>
+          <footer><strong>P. Anandan</strong> — transitioned from finance to teaching</footer>
+        </blockquote>
+        <blockquote>
+          <p>"The intensive was the right call for me — I needed six focused weeks, not a year of sessions. Mara adjusted the pace without making it feel rushed."</p>
+          <footer><strong>S. Marchetti</strong> — negotiated an exit and started consulting</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        <div class="section-head">
+          <div class="kicker">Get in touch</div>
+          <h2>Start with one honest conversation</h2>
+          <p>A free 20-minute call, no pitch — just enough for both of us to tell if this is the right fit. If it's not, I'll try to point you somewhere that is.</p>
+        </div>
+        <dl>
+          <dt>Email</dt>
+          <dd>mara@waypointcoaching.com</dd>
+          <dt>Based in</dt>
+          <dd>Portland, Oregon — sessions held over video anywhere</dd>
+          <dt>Response time</dt>
+          <dd>Within two business days</dd>
+        </dl>
+      </div>
+      <form>
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div>
+          <label for="situation">What's going on right now?</label>
+          <textarea id="situation" name="situation" placeholder="A sentence or two is plenty — we'll get into the rest on the call."></textarea>
+        </div>
+        <p class="form-note">This form is a static demo — connect it to your email or a form service to go live.</p>
+        <button type="submit">Request a first call</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>© 2026 Waypoint Coaching. Mara Voss, PCC.</div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#offerings">Offerings</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
